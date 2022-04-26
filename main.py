@@ -42,6 +42,7 @@ def reqister():
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
+        login_user(user, remember=False)
         return redirect('/find')
     return render_template('register.html', title='Регистрация', form=form)
 
@@ -74,7 +75,7 @@ def find():
         toponym_coodrinates = toponym["Point"]["pos"]
         toponym_longitude, toponym_lattitude = toponym_coodrinates.split(" ")
 
-        delta = "0.0525"
+        delta = "0.00525"
 
         map_params = {
             "apikey": org_api_key,
